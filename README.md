@@ -1,4 +1,6 @@
 # AutoExpire
+<img width="1917" height="986" alt="image" src="https://github.com/user-attachments/assets/be329383-6447-4bdb-afd3-137df63ecc15" />
+
 
 **A Windows desktop utility for scheduling file and folder expiry.**
 

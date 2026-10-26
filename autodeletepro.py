@@ -16,7 +16,7 @@ from datetime import datetime
 
 # --- WINDOWS TASKBAR ICON FIX ---
 try:
-    myappid = "AutoDelete Pro.fileexpiry.app.1.0"
+    myappid = "autodeletepro.app.1.0"
     ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 except Exception:
     pass

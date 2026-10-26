@@ -1,6 +1,8 @@
 # AutoDelete Pro — Right-Click File Expiry Scheduler for Windows
 
-<img width="1917" height="990" alt="image" src="https://github.com/user-attachments/assets/0c970668-f085-42d8-8518-a97224a9eb21" />
+<img width="600" height="300" alt="image" src="https://github.com/user-attachments/assets/9f4a4fd9-062a-44fa-b25a-d98977564bc3" />
+<img width="250" height="250" alt="Screenshot 2026-10-26 204023" src="https://github.com/user-attachments/assets/bd2e833c-5c2a-414c-a71b-f20952e8d16c" />
+
 
 
 

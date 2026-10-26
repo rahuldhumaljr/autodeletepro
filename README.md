@@ -1,13 +1,13 @@
-# AutoExpire — Right-Click File Expiry Scheduler for Windows
+# AutoDelete Pro — Right-Click File Expiry Scheduler for Windows
 
 <img width="1917" height="986" alt="image" src="https://github.com/user-attachments/assets/be329383-6447-4bdb-afd3-137df63ecc15" />
 
 
 **A Windows desktop utility for scheduling file and folder expiry.**
 
-AutoExpire helps users schedule files or folders for removal after a selected duration. It provides a desktop interface for managing scheduled items and includes optional Windows Explorer context-menu and startup integration.
+AutoDelete Pro helps users schedule files or folders for removal after a selected duration. It provides a desktop interface for managing scheduled items and includes optional Windows Explorer context-menu and startup integration.
 
-> **Data safety:** AutoExpire performs file operations that can result in data loss. Test with disposable files in a temporary directory before using it with real data, and maintain backups of important files. When Recycle Bin mode is disabled, expiry may permanently remove data.
+> **Data safety:** AutoDelete Pro performs file operations that can result in data loss. Test with disposable files in a temporary directory before using it with real data, and maintain backups of important files. When Recycle Bin mode is disabled, expiry may permanently remove data.
 
 ## Features
 
@@ -26,7 +26,7 @@ AutoExpire helps users schedule files or folders for removal after a selected du
 - **Platform integration:** Windows Registry and Windows Shell APIs
 - **Persistence:** Local configuration, history, and statistics files
 
-AutoExpire is designed for Windows and is not a cross-platform application.
+AutoDelete Pro is designed for Windows and is not a cross-platform application.
 
 ## Getting started
 
@@ -44,7 +44,7 @@ AutoExpire is designed for Windows and is not a cross-platform application.
 4. Run:
 
    ```powershell
-   py autoexpire.py
+   py autodeletepro.py
    ```
 
 The current source does not require additional third-party Python packages.
@@ -57,7 +57,7 @@ These safeguards should be validated on the target Windows environment before th
 
 ## Project status
 
-AutoExpire is an actively developed portfolio project. The source has been syntax-checked, but full runtime validation across Windows versions and packaged executable builds remains outstanding. The project should not yet be treated as production-ready for important data.
+AutoDelete Pro is an actively developed portfolio project. The source has been syntax-checked, but full runtime validation across Windows versions and packaged executable builds remains outstanding. The project should not yet be treated as production-ready for important data.
 
 ## Development approach
 
@@ -72,7 +72,7 @@ AI-assisted development was used to accelerate implementation. The project is be
 
 ## License
 
-AutoExpire is licensed under the **MIT License**. You may use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the software, provided that the copyright and permission notice are included in all copies or substantial portions of the software.
+AutoDelete Pro is licensed under the **MIT License**. You may use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the software, provided that the copyright and permission notice are included in all copies or substantial portions of the software.
 
 The software is provided "as is", without warranty of any kind. See the [`LICENSE`](LICENSE) file for the full license text.
 

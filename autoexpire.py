@@ -1,4 +1,4 @@
-"""AutoExpire: Windows desktop file/folder expiry timer.
+"""AutoDelete Pro: Windows desktop file/folder expiry timer.
 
 WARNING: Expiry can permanently delete data when Recycle Bin mode is explicitly
 disabled. Test with disposable files before relying on this application.
@@ -16,17 +16,17 @@ from datetime import datetime
 
 # --- WINDOWS TASKBAR ICON FIX ---
 try:
-    myappid = "autoexpire.fileexpiry.app.1.0"
+    myappid = "AutoDelete Pro.fileexpiry.app.1.0"
     ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 except Exception:
     pass
 
-CONFIG_FILE = os.path.expanduser("~\\.autoexpire_config.txt")
-SETTINGS_FILE = os.path.expanduser("~\\.autoexpire_settings.txt")
-HISTORY_FILE = os.path.expanduser("~\\.autoexpire_history.txt")
-STATS_FILE = os.path.expanduser("~\\.autoexpire_stats.txt")
-PENDING_FILE = os.path.expanduser("~\\.autoexpire_pending.txt")
-LOCK_FILE = os.path.expanduser("~\\.autoexpire_lock.tmp")
+CONFIG_FILE = os.path.expanduser("~\\.AutoDelete Pro_config.txt")
+SETTINGS_FILE = os.path.expanduser("~\\.AutoDelete Pro_settings.txt")
+HISTORY_FILE = os.path.expanduser("~\\.AutoDelete Pro_history.txt")
+STATS_FILE = os.path.expanduser("~\\.AutoDelete Pro_stats.txt")
+PENDING_FILE = os.path.expanduser("~\\.AutoDelete Pro_pending.txt")
+LOCK_FILE = os.path.expanduser("~\\.AutoDelete Pro_lock.tmp")
 
 THEMES = {
     "dark": {
@@ -72,7 +72,7 @@ def resource_path(relative_path):
 def set_window_icon(window):
     """Utility function to reliably load the icon onto any Tkinter window"""
     try:
-        icon_p = resource_path("autoexpire.ico")
+        icon_p = resource_path("AutoDelete Pro.ico")
         if os.path.exists(icon_p):
             window.iconbitmap(icon_p)
         else:
@@ -115,7 +115,7 @@ def set_setting(key, val):
 def check_startup_setting():
     try:
         with winreg.OpenKey(winreg.HKEY_CURRENT_USER, r"Software\Microsoft\Windows\CurrentVersion\Run", 0, winreg.KEY_READ) as key:
-            winreg.QueryValueEx(key, "AutoExpire")
+            winreg.QueryValueEx(key, "AutoDelete Pro")
             return True
     except Exception:
         return False
@@ -135,24 +135,24 @@ def set_startup_setting(enable):
         key_path = r"Software\Microsoft\Windows\CurrentVersion\Run"
         with winreg.CreateKey(winreg.HKEY_CURRENT_USER, key_path) as key:
             if enable:
-                winreg.SetValueEx(key, "AutoExpire", 0, winreg.REG_SZ, get_application_command())
+                winreg.SetValueEx(key, "AutoDelete Pro", 0, winreg.REG_SZ, get_application_command())
             else:
                 try:
-                    winreg.DeleteValue(key, "AutoExpire")
+                    winreg.DeleteValue(key, "AutoDelete Pro")
                 except FileNotFoundError:
                     pass
     except OSError as exc:
         # Keep the app running even if Windows blocks the registry update.
-        print(f"AutoExpire: could not update startup setting: {exc}", file=sys.stderr)
+        print(f"AutoDelete Pro: could not update startup setting: {exc}", file=sys.stderr)
 
 
 def check_context_menu_setting():
     return get_setting("context_menu", True)
 
 def set_context_menu_setting(enable):
-    """Install/remove AutoExpire's per-user Explorer context-menu entry."""
+    """Install/remove AutoDelete Pro's per-user Explorer context-menu entry."""
     set_setting("context_menu", enable)
-    key_path = r"Software\Classes\AllFilesystemObjects\shell\AutoExpire"
+    key_path = r"Software\Classes\AllFilesystemObjects\shell\AutoDelete Pro"
     cmd_path = key_path + r"\command"
     try:
         if enable:
@@ -165,7 +165,7 @@ def set_context_menu_setting(enable):
                 app_path = script_path
 
             with winreg.CreateKey(winreg.HKEY_CURRENT_USER, key_path) as key:
-                winreg.SetValue(key, "", winreg.REG_SZ, "Set to AutoExpire")
+                winreg.SetValue(key, "", winreg.REG_SZ, "Set to AutoDelete Pro")
                 winreg.SetValueEx(key, "Icon", 0, winreg.REG_SZ, app_path)
             with winreg.CreateKey(winreg.HKEY_CURRENT_USER, cmd_path) as key:
                 winreg.SetValue(key, "", winreg.REG_SZ, command_str)
@@ -179,7 +179,7 @@ def set_context_menu_setting(enable):
             except FileNotFoundError:
                 pass
     except OSError as exc:
-        print(f"AutoExpire: could not update context menu: {exc}", file=sys.stderr)
+        print(f"AutoDelete Pro: could not update context menu: {exc}", file=sys.stderr)
 
 
 def load_config_dict():
@@ -288,7 +288,7 @@ def clear_folder_contents(path, use_recycle):
                 os.remove(item_path)
         return True
     except OSError as exc:
-        print(f"AutoExpire: could not clear folder {path!r}: {exc}", file=sys.stderr)
+        print(f"AutoDelete Pro: could not clear folder {path!r}: {exc}", file=sys.stderr)
         return False
 
 
@@ -334,7 +334,7 @@ class QuickExpiryDialog:
         self.root = root
         self.paths = paths
 
-        self.root.title("AutoExpire - Set Expiry Timer")
+        self.root.title("AutoDelete Pro - Set Expiry Timer")
         self.root.geometry("380x320")
         self.root.resizable(False, False)
         self.root.configure(bg="#1a212c")
@@ -410,10 +410,10 @@ class QuickExpiryDialog:
             messagebox.showerror("Invalid Input", "Please enter a valid positive number.", parent=self.root)
 
 
-class AutoExpireApp:
+class AutoDelete ProApp:
     def __init__(self, root):
         self.root = root
-        self.root.title("AutoExpire")
+        self.root.title("AutoDelete Pro")
         self.root.geometry("1024x680")
         self.root.minsize(850, 580)
 
@@ -442,7 +442,7 @@ class AutoExpireApp:
 
         logo_frame = tk.Frame(self.sidebar, bg=self.colors["sidebar_bg"])
         logo_frame.pack(fill=tk.X, padx=16, pady=20)
-        self.logo_lbl = tk.Label(logo_frame, text="⏳ AutoExpire", font=("Mulish", 13, "bold"), bg=self.colors["sidebar_bg"], fg=self.colors["text_color"])
+        self.logo_lbl = tk.Label(logo_frame, text="⏳ AutoDelete Pro", font=("Mulish", 13, "bold"), bg=self.colors["sidebar_bg"], fg=self.colors["text_color"])
         self.logo_lbl.pack(anchor="w")
 
         self.nav_title_lbl = tk.Label(logo_frame, text="NAVIGATION", font=("Mulish", 8, "bold"), bg=self.colors["sidebar_bg"], fg=self.colors["subtext_color"])
@@ -581,7 +581,7 @@ class AutoExpireApp:
 
         footer_frame = tk.Frame(self.main_container, bg=self.colors["bg_color"])
         footer_frame.pack(fill=tk.X, padx=24, pady=(0, 12))
-        self.footer_lbl = tk.Label(footer_frame, text="AutoExpire — Automatic File & Folder Expiry Timer", font=("Mulish", 8), bg=self.colors["bg_color"], fg=self.colors["subtext_color"])
+        self.footer_lbl = tk.Label(footer_frame, text="AutoDelete Pro — Automatic File & Folder Expiry Timer", font=("Mulish", 8), bg=self.colors["bg_color"], fg=self.colors["subtext_color"])
         self.footer_lbl.pack(side=tk.LEFT)
 
         self.running = True
@@ -615,7 +615,7 @@ class AutoExpireApp:
         self.build_settings_radio_card(
             self.settings_inner_frame,
             title="Windows Context Menu Integration",
-            desc="Integrate 'Auto Delete With AutoExpire' directly into the Windows right-click menu.",
+            desc="Integrate 'Auto Delete With AutoDelete Pro' directly into the Windows right-click menu.",
             setting_key="context_menu",
             get_fn=check_context_menu_setting,
             set_fn=set_context_menu_setting
@@ -625,7 +625,7 @@ class AutoExpireApp:
         self.build_settings_radio_card(
             self.settings_inner_frame,
             title="Start with Windows",
-            desc="Automatically launch AutoExpire in the background when you log into Windows.",
+            desc="Automatically launch AutoDelete Pro in the background when you log into Windows.",
             setting_key="startup",
             get_fn=check_startup_setting,
             set_fn=set_startup_setting
@@ -753,7 +753,7 @@ class AutoExpireApp:
 
     def prompt_multi_expiry(self, paths, item_type="Files"):
         dialog = tk.Toplevel(self.root)
-        dialog.title("AutoExpire - Set Expiry Timer")
+        dialog.title("AutoDelete Pro - Set Expiry Timer")
         dialog.geometry("380x320")
         dialog.resizable(False, False)
         dialog.configure(bg=self.colors["card_bg"])
@@ -993,7 +993,7 @@ class AutoExpireApp:
                     success = True
                     action_str = "Permanently deleted (Recycle Bin disabled)"
             except OSError as exc:
-                print(f"AutoExpire: expiry operation failed for {path!r}: {exc}", file=sys.stderr)
+                print(f"AutoDelete Pro: expiry operation failed for {path!r}: {exc}", file=sys.stderr)
 
             if success:
                 if item_size:
@@ -1105,5 +1105,5 @@ if __name__ == "__main__":
                 sys.exit(0)
 
     root = tk.Tk()
-    app = AutoExpireApp(root)
+    app = AutoDelete ProApp(root)
     root.mainloop()

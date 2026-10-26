@@ -410,7 +410,7 @@ class QuickExpiryDialog:
             messagebox.showerror("Invalid Input", "Please enter a valid positive number.", parent=self.root)
 
 
-class AutoDelete ProApp:
+class AutoDeleteProApp:
     def __init__(self, root):
         self.root = root
         self.root.title("AutoDelete Pro")
@@ -1105,5 +1105,5 @@ if __name__ == "__main__":
                 sys.exit(0)
 
     root = tk.Tk()
-    app = AutoDelete ProApp(root)
+    app = AutoDeleteProApp(root)
     root.mainloop()
